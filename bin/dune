@@ -1,0 +1,3 @@
+(executable (name webmachine_app) (modules (:standard))
+    (public_name webmachine.exe) (libraries base stdio webmachine.lib))
+(include_subdirs unqualified)

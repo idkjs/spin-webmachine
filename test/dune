@@ -1,0 +1,4 @@
+(library (name Webmachine_test) (public_name webmachine.test)
+    (modules (:standard)) (libraries base webmachine.lib rely.lib)
+    (flags -open Base -linkall -g -w -9))
+(include_subdirs unqualified)

@@ -1,0 +1,3 @@
+(library (name Webmachine) (public_name webmachine.lib) (modules (:standard))
+    (libraries async core cohttp-async cohttp dispatch re re.str uri ptime))
+(include_subdirs unqualified)

@@ -1,0 +1,76 @@
+{
+  "name": "webmachine",
+  "version": "0.1.0",
+  "description": "ocaml webmachine implementation",
+  "author": "Alain Armand",
+  "license": "MIT",
+  "homepage": "https://github.com/idkjs/webmachine",
+  "bugs": { "url": "https://github.com/idkjs/webmachine/issues" },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/idkjs/webmachine.git"
+  },
+  "esy": {
+    "build": "dune build -p #{self.name}",
+    "NOTE": "Optional release Section. Customizes result of `esy release`",
+    "release": { "bin": { "webmachine": "webmachine.exe" } },
+    "buildEnv": { "ODOC_SYNTAX": "ml" }
+  },
+  "buildDirs": {
+    "test": {
+      "require": [ "base", "webmachine.lib", "rely.lib" ],
+      "flags": [ "-open", "Base", "-linkall", "-g", "-w", "-9" ],
+      "includeSubdirs": "unqualified",
+      "name": "webmachine.test",
+      "namespace": "Webmachine_test"
+    },
+    "test_runner": {
+      "require": [ "webmachine.test" ],
+      "bin": { "test-runner.exe": "test_runner_app.ml" }
+    },
+    "lib": {
+      "require": [
+        "async", "core", "cohttp-async", "cohttp", "dispatch", "re","re.str", "uri", "ptime"
+      ],
+      "includeSubdirs": "unqualified",
+      "name": "webmachine.lib",
+      "namespace": "Webmachine"
+    },
+    "bin": {
+      "require": [ "base", "stdio", "webmachine.lib" ],
+      "bin": { "webmachine.exe": "webmachine_app.ml" },
+      "includeSubdirs": "unqualified"
+    }
+  },
+  "dependencies": {
+    "@opam/async": "v0.13.0",
+    "@opam/base": "v0.13.0",
+    "@opam/cohttp": "2.5.0",
+    "@opam/cohttp-async": "2.5.0",
+    "@opam/core": "v0.13.0",
+    "@opam/dispatch": "0.4.1",
+    "@opam/dune": "*",
+    "@opam/ptime": "0.8.5",
+    "@opam/re": "1.9.0",
+    "@opam/stdio": "*",
+    "@opam/uri": "3.1.0",
+    "@reason-native/rely": "*",
+    "ocaml": ">= 4.6.0"
+  },
+  "devDependencies": {
+    "@opam/merlin": "*",
+    "@opam/odoc": "*",
+    "@opam/utop": "*",
+    "@pesy/esy-pesy": "0.1.0-alpha.5",
+    "ocaml": "~4.8.1000"
+  },
+  "scripts": {
+    "start": "esy x webmachine.exe",
+    "test": "esy x test-runner.exe",
+    "doc": "esy dune build @doc",
+    "doc-path": "esy echo #{self.target_dir}/default/_doc/_html/index.html",
+    "format": "esy dune build @fmt --auto-promote",
+    "watch": "esy dune build -p #{self.name} --watch",
+    "utop": "esy dune utop lib -- -implicit-bindings"
+  }
+}
